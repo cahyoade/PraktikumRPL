@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Login</h1>
+    <label for="username">username</label>
+    <input type="text" name="username" id="username">
+    <label for="password">password</label>
+    <input type="password" name="password" id="password">
+    <button id="submit">submit</button>
+    <a href="/createUser.html">sign up</a>
+
+    <script>
+        const username = document.querySelector('#username');
+        const password = document.querySelector('#password');
+        const submitButton = document.querySelector('#submit');
+        const apiUrl = 'http://localhost:3000/login';
+
+        submitButton.onclick = async event => {
+            const data = {username : username.value, password : password.value};
+            const options = {
+                method : 'POST',
+                headers : {
+                    'Content-Type' : 'application/json'
+                },
+                body : JSON.stringify(data)
+            };
+            const res = await fetch(apiUrl, options);
+            const resData = await res.json();
+            console.log(resData);
+        }
+
+    </script>
+</body>
+</html>
