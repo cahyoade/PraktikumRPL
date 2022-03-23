@@ -65,7 +65,7 @@ app.post('/login', (req, res) => {
             if(auth){
                 const userInfo = {username : data.username, role : rows[0].role };
                 const accessToken = jwt.sign(userInfo, process.env.secret);
-                res.json({msg : 'logged in', accessToken : accessToken});
+                res.json({msg : 'logged in', role: rows[0].role, accessToken : accessToken});
 
             }else{
                 res.json({msg : 'username or password is not correct'});
@@ -76,30 +76,42 @@ app.post('/login', (req, res) => {
 })
 
 //admin routes
-app.get('/adminTransactions', (req, res) => {
+app.get('/adminTransactions', authorizeAdmin, (req, res) => {
 
 });
 
-app.post('/adminTransactions', (req, res) => {
+app.post('/adminTransactions', authorizeAdmin, (req, res) => {
 
 })
 
-app.post('/products', (req, res) => {
+app.post('/products', authorizeAdmin, (req, res) => {
 
 })
 
 //user routes
-app.post('/userTransactions', (req, res) => {
+app.post('/userTransactions', authorizeUser, (req, res) => {
 
 })
 
-app.get('/userTransactions', (req, res) => {
+app.get('/userTransactions', authorizeUser, (req, res) => {
 
 });
 
 //public routes
 app.get('/products', (req, res) => {
-    res.json('products');
+    pool.getConnection((err, connection) => {
+        if(err){
+            res.json({msg : err});
+        }
+        connection.query(`select * from product`, async (err, rows) => {
+            connection.release();
+            if (err) {
+                res.json({msg : err});
+            }
+            console.log(rows);
+            res.json(rows);
+        })
+    })
 })
 
 app.post('/resetRequest', limit, (req, res) => {
@@ -201,11 +213,35 @@ app.post('/resetPassword', async (req, res) => {
 
 //middlewares
 function authorizeAdmin(req, res, next){
-
+    const token = req.header.token;
+    if(!(token)){
+        return res.status(403).end();
+    }
+    jwt.verify(token, process.env.secret, (err, userData) => {
+        if(err){
+            return res.status(500).end();
+        }
+        if(userData.role != 'admin'){
+            return res.status(403).end();
+        }
+        next();
+    })
 }
 
 function authorizeUser(req, res, next){
-
+    const token = req.header.token;
+    if(!(token)){
+        return res.status(403).end();
+    }
+    jwt.verify(token, process.env.secret, (err, userData) => {
+        if(err){
+            return res.status(500).end();
+        }
+        if(userData.role != 'user'){
+            return res.status(403).end();
+        }
+        next();
+    })
 }
 
 function limit(req, res, next){
