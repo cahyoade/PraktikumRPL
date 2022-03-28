@@ -77,23 +77,105 @@ app.post('/login', (req, res) => {
 
 //admin routes
 app.get('/adminTransactions', authorizeAdmin, (req, res) => {
+    pool.getConnection((err, connection) => {
+        if(err) {
+            res.json({msg : err});
+        }
+        const query = `select * from transaction`;
 
+        connection.query(query, (err, rows) => {
+            connection.release();
+            if (err) {
+                res.json({msg : err});
+            } else {
+                res.json(rows);
+            }
+        })
+    })
 });
 
 app.post('/adminTransactions', authorizeAdmin, (req, res) => {
+    const data = req.body;
+    const query = {insert : `insert into transaction values ('${data.user}', '${data.product}', '${data.quantity}', 1, ${new Date().toISOString().slice(0, 19).replace('T', ' ')})`,
+    edit : `update transaction set status='${data.status}' where id='${data.id}'`,
+    delete : `delete from transaction where id=${data.id}`};
+    pool.getConnection((err, connection) => {
+        if(err) {
+            res.json({msg : err});
+        }
 
+        connection.query(query[data.operation], (err, rows) => {
+            connection.release();
+            if (err) {
+                res.json({msg : err});
+            } else {
+                res.json({msg : "edit data success"});
+            }
+        })
+    })
 })
 
-app.post('/products', authorizeAdmin, (req, res) => {
+app.post('/Products', authorizeAdmin, (req, res) => {
+    const data = req.body;
+    const query = {insert : `insert into product values ('${data.name}','${data.price}', '${data.stock}')`,
+    edit : `update product set name='${data.name}', price ='${data.price}', stock='${data.stock}' where name='${data.name}'`,
+    delete : `delete from product where name=${data.name}`};
 
+    pool.getConnection((err, connection) => {
+        if(err) {
+            res.json({msg : err});
+        }
+
+        connection.query(query[data.operation], (err, rows) => {
+            connection.release();
+            if (err) {
+                res.json({msg : err});
+            } else {
+                res.json({msg : "update data success"});
+            }
+        })
+    })
 })
 
 //user routes
 app.post('/userTransactions', authorizeUser, (req, res) => {
+    const data = req.body;
+    const query = {insert : `insert into transaction values ('${data.user}', '${data.product}', '${data.quantity}', 1, ${new Date().toISOString().slice(0, 19).replace('T', ' ')})`,
+    edit : `update transaction set status='${data.status}' where id='${data.id}'`};
 
+    pool.getConnection((err, connection) => {
+        if(err) {
+            res.json({msg : err});
+        }
+
+        connection.query(query[data.operation], (err, rows) => {
+            connection.release();
+            if (err) {
+                res.json({msg : err});
+            } else {
+                res.json({msg : "insert data success"});
+            }
+        })
+    })
 })
 
+
 app.get('/userTransactions', authorizeUser, (req, res) => {
+    pool.getConnection((err, connection) => {
+        if(err) {
+            res.json({msg : err});
+        }
+        const query = `select * from transaction where user='${req.username}'`;
+
+        connection.query(query, (err, rows) => {
+            connection.release();
+            if (err) {
+                res.json({msg : err});
+            } else {
+                res.json(rows);
+            }
+        })
+    })
 
 });
 
@@ -213,7 +295,8 @@ app.post('/resetPassword', async (req, res) => {
 
 //middlewares
 function authorizeAdmin(req, res, next){
-    const token = req.header.token;
+    console.log(req.headers);
+    const token = req.headers.token;
     if(!(token)){
         return res.status(403).end();
     }
@@ -224,12 +307,13 @@ function authorizeAdmin(req, res, next){
         if(userData.role != 'admin'){
             return res.status(403).end();
         }
+        req.username = userData.username;
         next();
     })
 }
 
 function authorizeUser(req, res, next){
-    const token = req.header.token;
+    const token = req.headers.token;
     if(!(token)){
         return res.status(403).end();
     }
@@ -240,6 +324,7 @@ function authorizeUser(req, res, next){
         if(userData.role != 'user'){
             return res.status(403).end();
         }
+        req.username = userData.username;
         next();
     })
 }
