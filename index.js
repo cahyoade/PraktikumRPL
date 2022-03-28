@@ -96,7 +96,7 @@ app.get('/adminTransactions', authorizeAdmin, (req, res) => {
 
 app.post('/adminTransactions', authorizeAdmin, (req, res) => {
     const data = req.body;
-    const query = {insert : `insert into transaction values ('${data.user}', '${data.product}', '${data.quantity}', 1, ${new Date().toISOString().slice(0, 19).replace('T', ' ')})`,
+    const query = {insert : `insert into transaction values (default,'${data.user}', '${data.product}', '${data.quantity}', 1, '${new Date().toISOString().slice(0, 19).replace('T', ' ')}')`,
     edit : `update transaction set status='${data.status}' where id='${data.id}'`,
     delete : `delete from transaction where id=${data.id}`};
     pool.getConnection((err, connection) => {
@@ -140,7 +140,7 @@ app.post('/Products', authorizeAdmin, (req, res) => {
 //user routes
 app.post('/userTransactions', authorizeUser, (req, res) => {
     const data = req.body;
-    const query = {insert : `insert into transaction values ('${data.user}', '${data.product}', '${data.quantity}', 1, ${new Date().toISOString().slice(0, 19).replace('T', ' ')})`,
+    const query = {insert : `insert into transaction values (default,'${data.user}', '${data.product}', '${data.quantity}', 1, '${new Date().toISOString().slice(0, 19).replace('T', ' ')}')`,
     edit : `update transaction set status='${data.status}' where id='${data.id}'`};
 
     pool.getConnection((err, connection) => {
@@ -190,7 +190,6 @@ app.get('/products', (req, res) => {
             if (err) {
                 res.json({msg : err});
             }
-            console.log(rows);
             res.json(rows);
         })
     })
@@ -239,7 +238,6 @@ app.post('/resetRequest', limit, (req, res) => {
             
             transporter.sendMail(mailOptions, function(err, info){
             if (err) {
-                console.log(err);
                 res.json({msg : 'failed to send email'});
                 return;
             } else {
@@ -248,7 +246,6 @@ app.post('/resetRequest', limit, (req, res) => {
             });
 
             passwordResetCode[username] = resetCode;
-            console.log(passwordResetCode);
         })
     })    
 
@@ -295,7 +292,6 @@ app.post('/resetPassword', async (req, res) => {
 
 //middlewares
 function authorizeAdmin(req, res, next){
-    console.log(req.headers);
     const token = req.headers.token;
     if(!(token)){
         return res.status(403).end();
@@ -332,7 +328,6 @@ function authorizeUser(req, res, next){
 function limit(req, res, next){
     const host = req.headers.host;
     if(host in limitedHost){
-        console.log(`${host} limited`);
         res.status(403).end();
     }else{
         limitedHost[`${host}`] = host;
