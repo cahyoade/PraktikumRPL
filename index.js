@@ -179,6 +179,26 @@ app.get('/userTransactions', authorizeUser, (req, res) => {
 
 });
 
+app.post('/userData', authorizeUser, (req, res) => {
+    const data = req.body;
+    const query = {edit : `update user set email='${data.email}', address='${data.address}' where id='${data.id}'`};
+
+    pool.getConnection((err, connection) => {
+        if(err) {
+            res.json({msg : err});
+        }
+
+        connection.query(query[data.operation], (err, rows) => {
+            connection.release();
+            if (err) {
+                res.json({msg : err});
+            } else {
+                res.json({msg : "insert data success"});
+            }
+        })
+    })
+})
+
 //public routes
 app.get('/products', (req, res) => {
     pool.getConnection((err, connection) => {
