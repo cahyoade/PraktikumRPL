@@ -31,7 +31,7 @@ app.post('/createUser', async (req, res) => {
         if(err) {
             res.json({msg : err});
         }
-        const query = `insert into user values ('${data.username}','${hashedPassword}', '${data.email}', 0, 'user')`
+        const query = `insert into user values ('${data.username}','${hashedPassword}', '${data.email}', 'user', 'null')`
         connection.query(query, (err, rows) => {
             connection.release();
             if (err) {
@@ -308,6 +308,15 @@ app.post('/resetPassword', async (req, res) => {
         })
     })    
 
+})
+
+app.get('/tokenData', (req, res) => {
+    jwt.verify(req.headers.token, process.env.secret, (err, userData) => {
+        if(err){
+            return res.status(500).end();
+        }
+        res.json(userData);
+    })
 })
 
 //middlewares

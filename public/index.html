@@ -5,40 +5,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link rel="stylesheet" href="./css/index.css">
 </head>
 <body>
-    <h1>Login</h1>
-    <label for="username">username</label>
-    <input type="text" name="username" id="username">
-    <label for="password">password</label>
-    <input type="password" name="password" id="password">
-    <button id="submit">submit</button>
-    <a href="/createUser.html">sign up</a>
-
-    <script>
-        const username = document.querySelector('#username');
-        const password = document.querySelector('#password');
-        const submitButton = document.querySelector('#submit');
-        const apiUrl = 'http://localhost:3000/login';
-
-        submitButton.onclick = async event => {
-            const data = {username : username.value, password : password.value};
-            const options = {
-                method : 'POST',
-                headers : {
-                    'Content-Type' : 'application/json'
-                },
-                body : JSON.stringify(data)
-            };
-            const res = await fetch(apiUrl, options);
-            const resData = await res.json();
-            console.log(resData);
-            if(resData.accessToken){
-                localStorage.setItem('token', resData.accessToken);
-                window.location.assign(`${window.location.protocol}//${window.location.hostname}:${window.location.port}/${resData.role}.html`)
-            };
-        }
-
-    </script>
+    <div class="main">
+        <img src="./img/login.jpg" alt="">
+        <div class="login">
+            <div class="title">
+                <h1>Login</h1>
+                <p>Silahkan login untuk mengakses aplikasi.</p>
+            </div>
+            <input type="text" name="username" id="username" placeholder="Username">
+            <input type="password" name="password" id="password" placeholder="Password">
+            <button id="submit">Login</button>
+            <p>Belum punya akun? Silahkan <a href="/createUser.html">daftar</a>. Lupa password silahkan klik di <a href="/resetPassword.html">sini</a>.</p>
+        </div>
+    </div>
+    <script src="./js/index.js"></script>
 </body>
 </html>

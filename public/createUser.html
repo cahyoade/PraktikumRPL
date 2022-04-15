@@ -4,43 +4,27 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>createuser</title>
+    <title>Daftar</title>
+    <link rel="stylesheet" href="./css/index.css">
 </head>
 <body>
-    <h1>sign up</h1>
-    <label for="username">username</label>
-    <input type="text" name="username" id="username">
-    <label for="password">password</label>
-    <input type="password" name="password" id="password">
-    <!-- <label for="passwordConfirm">username</label>
-    <input type="password" name="passwordConfirm" id="passwordConfirm"> -->
-    <label for="email">email</label>
-    <input type="text" name="email" id="email">
-    <button id="submit">submit</button>
+    <div class="main">
+        <img src="./img/login.jpg" alt="">
+        <div class="login">
+            <div class="title">
+                <h1>Daftar</h1>
+                <p>Silahkan daftar untuk membuat akun baru.</p>
+                <p id="message" style="font-weight: bold;"></p>
+            </div>
+            <input type="text" name="username" id="username" placeholder="Username">
+            <input type="password" name="password" id="password" placeholder="Password">
+            <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm Password">
+            <input type="text" name="email" id="email" placeholder="Email">
+            <button id="submit">Daftar</button>
+            <p>Sudah punya akun? Silahkan <a href="/index.html">login</a>. Lupa password silahkan klik di <a href="/resetPassword.html">sini</a>.</p>
+        </div>
+    </div>
 
-    <script>
-        const username = document.querySelector('#username');
-        const password = document.querySelector('#password');
-        const email = document.querySelector('#email');
-        const submitButton = document.querySelector('#submit');
-        const apiUrl = 'http://localhost:3000/createUser';
-
-        submitButton.onclick = async event => {
-            const data = {username : username.value, password : password.value, email : email.value};
-            const options = {
-                method : 'POST',
-                headers : {
-                    'Content-Type' : 'application/json'
-                },
-                body : JSON.stringify(data)
-            };
-            const res = await fetch(apiUrl, options);
-            const resData = await res.json();
-            console.log(resData);
-        }
-
-
-
-    </script>
+    <script src="./js/createUser.js"></script>
 </body>
 </html>
