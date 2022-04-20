@@ -1,0 +1,184 @@
+@import url("https://fonts.googleapis.com/css2?family=Arvo:wght@700&family=Lato:wght@300;400&display=swap");
+* {
+  font-family: 'Lato', sans-serif;
+  margin: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body {
+  background-color: #fcfcfc;
+}
+
+h1 {
+  font-family: 'Arvo', serif;
+}
+
+.extraBig, main .menu .title, main .menu .item .info .quantity {
+  font-size: 48px;
+  font-family: 'Arvo', serif;
+}
+
+.big, main .menu .item button.minus, main .menu .item button.plus {
+  font-size: 24px;
+  font-family: 'Arvo', serif;
+}
+
+.medium, nav button, main .menu .item .info .productName {
+  font-size: 18px;
+}
+
+.small, nav p, main .menu .item .info .productPrice, main .menu .item button.addToCard {
+  font-size: 14px;
+}
+
+.extraSmall {
+  font-size: 10px;
+}
+
+.bold, main .menu .title, main .menu .item .info .quantity, main .menu .item .info .productName {
+  font-weight: 700;
+}
+
+.regular {
+  font-weight: 400;
+}
+
+.light {
+  font-weight: 300;
+}
+
+.flex-column {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+body {
+  width: 100vw;
+}
+
+nav {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #ffbc43;
+  height: 9vh;
+  padding: 0 5vw;
+  color: white;
+}
+
+nav p {
+  margin-top: -3px;
+}
+
+nav button {
+  border: none;
+  background-color: #ffbc43;
+  color: white;
+  cursor: pointer;
+}
+
+main {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
+  padding: 9vh 5vw;
+  width: 100%;
+}
+
+main .menu {
+  padding-right: 8vw;
+}
+
+main .menu .title {
+  margin-bottom: 2vh;
+}
+
+main .menu #search {
+  width: 100%;
+  padding: 10px;
+  border-radius: 7px;
+  margin-bottom: 2vh;
+}
+
+main .menu .item {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 0 15px;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #ffbc43;
+  color: white;
+  border-radius: 7px;
+  margin-bottom: 7px;
+}
+
+main .menu .item .info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+  max-width: 400px;
+}
+
+main .menu .item .info .controls {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 20%;
+  min-width: 130px;
+  margin-right: 10px;
+}
+
+main .menu .item button {
+  border: none;
+  background-color: #ffbc43;
+  color: white;
+  cursor: pointer;
+}
+
+@media only screen and (max-width: 950px) {
+  main {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+}
+/*# sourceMappingURL=user.css.map */

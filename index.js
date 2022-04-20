@@ -63,7 +63,7 @@ app.post('/login', (req, res) => {
             
             const auth = await bcrypt.compare(data.password, rows[0].password);
             if(auth){
-                const userInfo = {username : data.username, role : rows[0].role };
+                const userInfo = {username : data.username, email : rows[0].email, address : rows[0].address, role : rows[0].role};
                 const accessToken = jwt.sign(userInfo, process.env.secret);
                 res.json({msg : 'logged in', role: rows[0].role, accessToken : accessToken});
 
