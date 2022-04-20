@@ -31,7 +31,7 @@ app.post('/createUser', async (req, res) => {
         if(err) {
             res.json({msg : err});
         }
-        const query = `insert into user values ('${data.username}','${hashedPassword}', '${data.email}', 'user', 'null')`
+        const query = `insert into user values ('${data.username}','${hashedPassword}', '${data.email}', 'user', '${data.address}')`
         connection.query(query, (err, rows) => {
             connection.release();
             if (err) {

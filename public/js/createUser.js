@@ -2,13 +2,36 @@ const username = document.querySelector('#username');
 const password = document.querySelector('#password');
 const confirmPassword = document.querySelector('#confirmPassword');
 const email = document.querySelector('#email');
+const address = document.querySelector('#address');
 const submitButton = document.querySelector('#submit');
 const messageBox = document.querySelector('#message');
 const apiUrl = `${window.location.protocol}//${window.location.hostname}:${window.location.port}/createUser`;
+const validateEmail = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
+
+isLoggedIn();
+async function isLoggedIn(){
+if(localStorage.getItem('token')){
+    const res = await fetch(apiUrl + '/tokenData', {headers : {'token' : localStorage.getItem('token')}});
+    const resData = await res.json();
+    window.location.assign(`${window.location.protocol}//${window.location.hostname}:${window.location.port}/${resData.role}.html`)
+    return true;
+}
+    return false;
+}
 
 confirmPassword.onkeyup = e => {
     if (password.value != confirmPassword.value){
         messageBox.innerHTML = 'Password tidak sama!';
+        messageBox.style.color = 'crimson';
+    }else{
+        messageBox.innerHTML = '';
+        messageBox.style.color = '';
+    }
+}
+
+email.onkeyup = e => {
+    if (!validateEmail.test(email.value)){
+        messageBox.innerHTML = 'Email tidak valid!';
         messageBox.style.color = 'crimson';
     }else{
         messageBox.innerHTML = '';
@@ -23,7 +46,7 @@ submitButton.onclick = async event => {
         messageBox.style.color = 'crimson';
     }
     else if (password.value == confirmPassword.value && [...inputs].filter(e => e.value == '').length == 0){
-        const data = {username : username.value, password : password.value, email : email.value};
+        const data = {username : username.value, password : password.value, email : email.value, address : address.value};
         const options = {
             method : 'POST',
             headers : {
