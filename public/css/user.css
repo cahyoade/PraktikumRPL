@@ -14,21 +14,21 @@ h1 {
   font-family: 'Arvo', serif;
 }
 
-.extraBig, main .menu .title, main .menu .item .info .quantity {
+.extraBig, main .menu .title, main .menu .item .info .quantity, main .cart .title, main .cart .cartItem .info .quantity {
   font-size: 48px;
   font-family: 'Arvo', serif;
 }
 
-.big, main .menu .item button.minus, main .menu .item button.plus {
+.big, main .menu .item button.minus, main .menu .item button.plus, main .cart .transaction .total, main .cart .cartItem button.minus, main .cart .cartItem button.plus {
   font-size: 24px;
   font-family: 'Arvo', serif;
 }
 
-.medium, nav button, main .menu .item .info .productName {
+.medium, nav button, main .menu .item .info .productName, main .cart .transaction button, main .cart .cartItem .info .productName {
   font-size: 18px;
 }
 
-.small, nav p, main .menu .item .info .productPrice, main .menu .item button.addToCard {
+.small, nav p, main .menu .sub, main .menu .item .info .productPrice, main .menu .item button.addToCard, main .cart .transaction .sub, main .cart .cartItem .info .productPrice, main .cart .cartItem button.addToCard {
   font-size: 14px;
 }
 
@@ -36,7 +36,7 @@ h1 {
   font-size: 10px;
 }
 
-.bold, main .menu .title, main .menu .item .info .quantity, main .menu .item .info .productName {
+.bold, main .menu .title, main .menu .item .info .quantity, main .menu .item .info .productName, main .cart .title, main .cart .transaction .total, main .cart .transaction button, main .cart .cartItem .info .quantity, main .cart .cartItem .info .productName {
   font-weight: 700;
 }
 
@@ -44,7 +44,7 @@ h1 {
   font-weight: 400;
 }
 
-.light {
+.light, main .menu .sub, main .cart .transaction .sub {
   font-weight: 300;
 }
 
@@ -100,10 +100,12 @@ main {
 
 main .menu {
   padding-right: 8vw;
+  width: 100%;
 }
 
-main .menu .title {
+main .menu .sub {
   margin-bottom: 2vh;
+  margin-top: -5px;
 }
 
 main .menu #search {
@@ -167,6 +169,95 @@ main .menu .item button {
   cursor: pointer;
 }
 
+main .cart {
+  padding-right: 8vw;
+  width: 100%;
+}
+
+main .cart .title {
+  margin-bottom: 2vh;
+}
+
+main .cart .transaction {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+  padding-bottom: 2vh;
+}
+
+main .cart .transaction button {
+  border: none;
+  background-color: #ffbc43;
+  color: white;
+  cursor: pointer;
+  height: 100%;
+  width: 30%;
+  padding: 7px 0;
+  max-width: 150px;
+  border-radius: 7px;
+}
+
+main .cart .cartItem {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 0 15px;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #ffbc43;
+  color: white;
+  border-radius: 7px;
+  margin-bottom: 7px;
+}
+
+main .cart .cartItem .info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+  max-width: 400px;
+}
+
+main .cart .cartItem .info .controls {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 20%;
+  min-width: 130px;
+  margin-right: 10px;
+}
+
+main .cart .cartItem button {
+  border: none;
+  background-color: #ffbc43;
+  color: white;
+  cursor: pointer;
+}
+
 @media only screen and (max-width: 950px) {
   main {
     display: -webkit-box;
@@ -179,6 +270,9 @@ main .menu .item button {
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
+  }
+  main > * {
+    padding-bottom: 5vh;
   }
 }
 /*# sourceMappingURL=user.css.map */

@@ -21,104 +21,20 @@
     <main>
         <div class="menu">
             <p class="title">Pilihan Roti</p>
+            <p class="sub">Tekan tombol + atau - untuk mengubah jumlah pesanan</p>
             <input type="text" name="search" id="search" placeholder="Cari roti ...">
         </div>
         <div class="cart">
-
+            <p class="title">Keranjang</p>
+            <div class="transaction">
+                <div class="totalPrice">
+                    <div class="total">TOTAL : Rp. 0</div>
+                    <p class="sub">Pembayaran dilakukan secara cash on delivery</p>
+                </div>
+                <button class="makeTransaction">Pesan</button>
+            </div>
         </div>
     </main>
 </body>
-<script>
-    const apiUrl = `${window.location.protocol}//${window.location.hostname}:${window.location.port}`;
-    const username = document.querySelector('#username');
-    const usermail = document.querySelector('#usermail');
-    const logoutButton = document.querySelector('#logout');
-    const menu = document.querySelector('.menu');
-    const search = document.querySelector('#search');
-    let productList;
-
-    logout.onclick = e => {
-        localStorage.clear();
-        isLoggedIn();
-    }
-
-    search.onkeyup = e => {
-        const pattern = new RegExp(`${search.value}`, 'i');
-        const itemList = document.querySelectorAll('.item');
-        for(item of [...itemList]){
-            const name = item.querySelector('.productName').innerText;
-            if(!(name.match(pattern))){
-                item.style.display = 'none';
-            }
-            else{
-                item.style.display = 'flex';
-            }
-        }
-    }
-
-    isLoggedIn();
-    function isLoggedIn(){
-    if(localStorage.getItem('token')){
-        init()
-        return true;
-    }
-        window.location.assign(`${window.location.protocol}//${window.location.hostname}:${window.location.port}`)
-        return false;
-    }
-
-    async function init(){
-        let res = await fetch(apiUrl + '/tokenData', {headers : {'token' : localStorage.getItem('token')}});
-        const userData = await res.json();
-
-        username.textContent = userData.username;
-        usermail.textContent = userData.email;
-
-        res = await fetch(apiUrl + '/products');
-        productList = await res.json();
-        for(item of productList){
-            console.log(item)
-            createItem(item.name, item.price, 1);
-        }
-    }
-
-    function createItem(name, price, quantity) {
-        const el = document.createElement('div');
-        el.innerHTML = `<div class="item" price="${price}">
-                        <div class="info">
-                            <div class="controls">
-                                <button class="minus">-</button>
-                                <p class="quantity">${quantity}</p>
-                                <button class="plus">+</button>
-                            </div>
-                            <div class="productInfo">
-                                <p class="productName">${name}</p>
-                                <p class="productPrice">Rp. ${price}</p>
-                            </div>
-                        </div>
-                        <button class="addToCart">Tambah ke keranjang</button>
-                        </div>`
-
-        el.querySelector('.minus').onclick = e => {
-            if(e.target.nextElementSibling.innerText != '0'){
-                const quantityField = e.target.nextElementSibling;
-            const priceField = e.target.parentElement.parentElement.querySelector('.productPrice');
-            const initialPrice = e.target.parentElement.parentElement.parentElement.attributes.price.value;
-            console.log(initialPrice);
-            quantityField.innerText = `${+quantityField.innerText - 1}`;
-            priceField.innerText = `Rp. ${+initialPrice * +quantityField.innerText}`
-            }
-        }
-
-        el.querySelector('.plus').onclick = e => {
-            const quantityField = e.target.previousElementSibling;
-            const priceField = e.target.parentElement.parentElement.querySelector('.productPrice');
-            const initialPrice = e.target.parentElement.parentElement.parentElement.attributes.price.value;
-            console.log(initialPrice);
-            quantityField.innerText = `${+quantityField.innerText + 1}`;
-            priceField.innerText = `Rp. ${+initialPrice * +quantityField.innerText}`
-        }
-                        
-        menu.appendChild(el);
-    }
-</script>
+<script src="./js/user.js"></script>
 </html>
