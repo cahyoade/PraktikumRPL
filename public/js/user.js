@@ -6,6 +6,7 @@ const menu = document.querySelector('.menu');
 const cart = document.querySelector('.cart');
 const search = document.querySelector('#search');
 const total = document.querySelector('.total');
+const makeTransaction = document.querySelector('.makeTransaction');
 let productList;
 let globalInterval;
 
@@ -28,6 +29,34 @@ search.onkeyup = e => {
     }
 }
 
+makeTransaction.onclick = async e => {
+    const cartItems = cart.querySelectorAll('.cartItem');
+    let res = await fetch(apiUrl + '/tokenData', {headers : {'token' : localStorage.getItem('token')}});
+    const userData = await res.json();
+    let transactions = [];
+
+    for(item of cartItems){
+        const product = item.querySelector('.productName').innerText;
+        const quantity = +item.querySelector('.quantity').innerText;
+        const data = {user : userData.username, product : product, quantity : quantity, operation : 'insert'} 
+        
+        const options = {
+            method : 'POST',
+            headers : {
+                'Content-Type' : 'application/json',
+                'token' : localStorage.getItem('token')
+            },
+            body : JSON.stringify(data)
+        }
+        
+        transactions.push(fetch(apiUrl + '/userTransactions', options));
+    }
+
+    Promise.all(transactions).then(e => console.log('success!'));
+    clearCart();
+
+}
+
 isLoggedIn();
 function isLoggedIn(){
 if(localStorage.getItem('token')){
@@ -48,7 +77,6 @@ async function init(){
     res = await fetch(apiUrl + '/products');
     productList = await res.json();
     for(item of productList){
-        console.log(item)
         menu.appendChild(createItem(item.name, item.price, 1));
     }
 }
@@ -233,8 +261,16 @@ function calculateCartTotal(){
     const cartItems = cart.querySelectorAll('.cartItem');
     let price = 0;
     for(item of cartItems){
-        console.log(item.querySelector('.productPrice').innerText.split(' '));
         price += (+item.querySelector('.productPrice').innerText.split(' ')[1]);
     }
     total.innerText = `TOTAL : Rp. ${price}`;
+}
+
+function clearCart(){
+    const cartItems = cart.querySelectorAll('.cartItem');
+    for(item of cartItems){
+        item.querySelector('.quantity').innerText = '1';
+        item.querySelector('.productPrice').innerText = item.attributes.price.value;
+        item.querySelector('.delete').click();
+    }
 }

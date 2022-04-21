@@ -7,5 +7,7 @@
 			"path": "..\\simplePOS"
 		}
 	],
-	"settings": {}
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "roti"
+	}
 }

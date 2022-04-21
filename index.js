@@ -140,7 +140,10 @@ app.post('/Products', authorizeAdmin, (req, res) => {
 //user routes
 app.post('/userTransactions', authorizeUser, (req, res) => {
     const data = req.body;
-    const query = {insert : `insert into transaction values (default,'${data.user}', '${data.product}', '${data.quantity}', 1, '${new Date().toISOString().slice(0, 19).replace('T', ' ')}')`,
+    const date = new Date().toISOString().split('T')[0];
+    const time = new Date().toString().slice(16, 24);
+    const dateTime = `${date} ${time}`;
+    const query = {insert : `insert into transaction values (default,'${data.user}', '${data.product}', '${data.quantity}', 1, '${dateTime}')`,
     edit : `update transaction set status='${data.status}' where id='${data.id}'`};
 
     pool.getConnection((err, connection) => {
@@ -363,6 +366,7 @@ function limit(req, res, next){
         setTimeout(() => delete limitedHost[`${host}`], 60 * 1000);
         next();
     }
-} 
+}
+
 
 app.listen(3000, () => console.log('server ready at :3000'));

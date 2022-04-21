@@ -19,7 +19,7 @@ h1 {
   font-family: 'Arvo', serif;
 }
 
-.big, main .menu .item button.minus, main .menu .item button.plus, main .cart .transaction .total, main .cart .cartItem button.minus, main .cart .cartItem button.plus {
+.big, main .menu .item button.minus, main .menu .item button.plus, main .cart .transaction .total, main .cart .cartItem button.minus, main .cart .cartItem button.plus, .modal .userDataForm .header .title {
   font-size: 24px;
   font-family: 'Arvo', serif;
 }
@@ -28,7 +28,7 @@ h1 {
   font-size: 18px;
 }
 
-.small, nav p, main .menu .sub, main .menu .item .info .productPrice, main .menu .item button.addToCard, main .cart .transaction .sub, main .cart .cartItem .info .productPrice, main .cart .cartItem button.addToCard {
+.small, nav p, main .menu .sub, main .menu .item .info .productPrice, main .menu .item button.addToCard, main .cart .transaction .sub, main .cart .cartItem .info .productPrice, main .cart .cartItem button.addToCard, .modal .userDataForm > .textField, .modal .userDataForm button {
   font-size: 14px;
 }
 
@@ -36,7 +36,7 @@ h1 {
   font-size: 10px;
 }
 
-.bold, main .menu .title, main .menu .item .info .quantity, main .menu .item .info .productName, main .cart .title, main .cart .transaction .total, main .cart .transaction button, main .cart .cartItem .info .quantity, main .cart .cartItem .info .productName {
+.bold, main .menu .title, main .menu .item .info .quantity, main .menu .item .info .productName, main .cart .title, main .cart .transaction .total, main .cart .transaction button, main .cart .cartItem .info .quantity, main .cart .cartItem .info .productName, .modal .userDataForm .header .title {
   font-weight: 700;
 }
 
@@ -44,11 +44,11 @@ h1 {
   font-weight: 400;
 }
 
-.light, main .menu .sub, main .cart .transaction .sub {
+.light, main .menu .sub, main .cart .transaction .sub, .modal .userDataForm > .textField {
   font-weight: 300;
 }
 
-.flex-column {
+.flex-column, .modal .userDataForm > .textField {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -256,6 +256,85 @@ main .cart .cartItem button {
   background-color: #ffbc43;
   color: white;
   cursor: pointer;
+}
+
+.modal {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: rgba(0, 0, 0, 0.3);
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+}
+
+.modal .userDataForm {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  background-color: white;
+  width: 25vw;
+  height: 60vh;
+  min-width: 350px;
+  border-radius: 20px;
+  padding: 30px;
+}
+
+.modal .userDataForm .header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 10px;
+}
+
+.modal .userDataForm .header .close {
+  height: 15px;
+  width: auto;
+  -webkit-filter: invert(1);
+          filter: invert(1);
+  cursor: pointer;
+}
+
+.modal .userDataForm > .textField {
+  margin: 2px 0 0 0;
+}
+
+.modal .userDataForm > .textField input {
+  margin: 5px 0;
+  padding: 5px;
+  border: 1.9px solid #7b7b7b;
+  border-radius: 5px;
+}
+
+.modal .userDataForm button {
+  border: none;
+  background-color: #ffbc43;
+  color: white;
+  cursor: pointer;
+  width: 30%;
+  padding: 7px 0;
+  max-width: 150px;
+  border-radius: 7px;
+  margin-top: 10px;
+  -ms-flex-item-align: end;
+      align-self: flex-end;
 }
 
 @media only screen and (max-width: 950px) {

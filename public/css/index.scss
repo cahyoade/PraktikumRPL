@@ -47,7 +47,7 @@ body{
         }
     
         button {
-            @extend .bold, .f-18;
+            @extend .bold, .medium;
             padding: 12px;
             border-radius: 7px;
             background-color: $primaryColor;
@@ -56,7 +56,7 @@ body{
         }
     
         p{
-            @extend .light, .f-18;
+            @extend .light, .medium;
             a {
                 @extend .bold;
                 color: $primaryColor;

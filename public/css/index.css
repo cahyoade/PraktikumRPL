@@ -14,19 +14,25 @@ h1 {
   font-family: 'Arvo', serif;
 }
 
-.f-24 {
-  font-size: 24px;
+.extraBig {
+  font-size: 48px;
+  font-family: 'Arvo', serif;
 }
 
-.f-18, .main .login button, .main .login p {
+.big {
+  font-size: 24px;
+  font-family: 'Arvo', serif;
+}
+
+.medium, .main .login button, .main .login p {
   font-size: 18px;
 }
 
-.f-14 {
+.small {
   font-size: 14px;
 }
 
-.f-10 {
+.extraSmall {
   font-size: 10px;
 }
 
