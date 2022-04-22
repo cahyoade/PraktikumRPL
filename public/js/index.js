@@ -24,7 +24,6 @@ submitButton.onclick = async event => {
     };
     const res = await fetch(apiUrl + '/login', options);
     const resData = await res.json();
-    console.log(resData);
     if(resData.accessToken){
         localStorage.setItem('token', resData.accessToken);
         window.location.assign(`${window.location.protocol}//${window.location.hostname}:${window.location.port}/${resData.role}.html`)

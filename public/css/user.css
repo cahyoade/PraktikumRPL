@@ -258,10 +258,13 @@ main .cart .cartItem button {
   cursor: pointer;
 }
 
+.disabled {
+  -webkit-filter: grayscale(1);
+          filter: grayscale(1);
+}
+
 .modal {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  display: none;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
@@ -285,7 +288,6 @@ main .cart .cartItem button {
           flex-direction: column;
   background-color: white;
   width: 25vw;
-  height: 60vh;
   min-width: 350px;
   border-radius: 20px;
   padding: 30px;

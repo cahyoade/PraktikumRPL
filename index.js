@@ -182,21 +182,42 @@ app.get('/userTransactions', authorizeUser, (req, res) => {
 
 });
 
-app.post('/userData', authorizeUser, (req, res) => {
+app.post('/userData', authorizeUser, async (req, res) => {
     const data = req.body;
-    const query = {edit : `update user set email='${data.email}', address='${data.address}' where id='${data.id}'`};
+    const hashedPassword = await bcrypt.hash(data.password, 10).catch(err => {res.json({msg : 'server error'});res.end()});
+    const query = `update user set password='${hashedPassword}', email='${data.email}', address='${data.address}' where username='${data.username}'`;
 
     pool.getConnection((err, connection) => {
         if(err) {
             res.json({msg : err});
         }
 
-        connection.query(query[data.operation], (err, rows) => {
+        connection.query(query, (err, rows) => {
             connection.release();
             if (err) {
                 res.json({msg : err});
             } else {
                 res.json({msg : "insert data success"});
+            }
+        })
+    })
+})
+
+app.get('/userData', authorizeUser, async (req, res) => {
+    const data = req.headers;
+    const query = `select * from user where username='${data.username}'`;
+
+    pool.getConnection((err, connection) => {
+        if(err) {
+            res.json({msg : err});
+        }
+
+        connection.query(query, (err, rows) => {
+            connection.release();
+            if (err) {
+                res.json({msg : err});
+            } else {
+                res.json({username : rows[0].username, email : rows[0].email, address : rows[0].address, role : rows[0].role});
             }
         })
     })

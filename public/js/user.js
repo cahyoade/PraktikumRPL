@@ -6,13 +6,66 @@ const menu = document.querySelector('.menu');
 const cart = document.querySelector('.cart');
 const search = document.querySelector('#search');
 const total = document.querySelector('.total');
+const editUserData = document.querySelector('#editUserData');
 const makeTransaction = document.querySelector('.makeTransaction');
+const editUsername = document.querySelector('#editUsername');
+const editPassword = document.querySelector('#editPassword');
+const editEmail = document.querySelector('#editEmail');
+const editAddress = document.querySelector('#editAddress');
+const saveDataButton = document.querySelector('.saveData');
+
 let productList;
 let globalInterval;
 
 logout.onclick = e => {
     localStorage.clear();
     isLoggedIn();
+}
+
+editUserData.onclick = e => {
+    document.querySelector('.modal').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+    document.body.style.height = '100vh';
+}
+
+document.querySelector('.close').onclick = e => {
+    document.querySelector('.modal').style.display = 'none';
+    document.body.style.overflow = '';
+    document.body.style.height = '';
+}
+
+saveDataButton.onclick = async e => {
+    const data = {username : editUsername.value, password : editPassword.value, email : editEmail.value, address : editAddress.value};
+    const options = {
+        method : 'POST',
+        headers : {
+            'token' : localStorage.getItem('token'),
+            'Content-Type' : 'application/json'
+        },
+        body : JSON.stringify(data)
+    };
+    let res = await fetch(apiUrl + '/userData', options);
+    const resData = await res.json();
+    
+    if (resData.msg == 'insert data success'){
+        document.querySelector('.close').click();
+        window.alert('ubah data sukses');
+
+        res = await fetch(apiUrl + '/userData', {headers : {'token' : localStorage.getItem('token'), 'username' : editUsername.value}});
+        const userData = await res.json();
+
+        username.textContent = userData.username;
+        usermail.textContent = userData.email;
+        editUsername.value = userData.username;
+        editEmail.value = userData.email;
+        editAddress.value = userData.address;
+
+        localStorage.clear();
+
+        res = await fetch(apiUrl + '/login', options);
+        const resData = await res.json();
+        localStorage.setItem('token', resData.accessToken);
+    }
 }
 
 search.onkeyup = e => {
@@ -52,7 +105,7 @@ makeTransaction.onclick = async e => {
         transactions.push(fetch(apiUrl + '/userTransactions', options));
     }
 
-    Promise.all(transactions).then(e => console.log('success!'));
+    Promise.all(transactions).then(e => window.alert('pemesanan berhasil'));
     clearCart();
 
 }
@@ -73,6 +126,9 @@ async function init(){
 
     username.textContent = userData.username;
     usermail.textContent = userData.email;
+    editUsername.value = userData.username;
+    editEmail.value = userData.email;
+    editAddress.value = userData.address;
 
     res = await fetch(apiUrl + '/products');
     productList = await res.json();
@@ -259,6 +315,15 @@ function createCartItem(name, price, quantity) {
 
 function calculateCartTotal(){
     const cartItems = cart.querySelectorAll('.cartItem');
+
+    if (cartItems.length != 0){
+        makeTransaction.disabled = false;
+        makeTransaction.classList.remove('disabled');
+    }else{
+        makeTransaction.disabled = true;
+        makeTransaction.classList.add('disabled');
+    }
+
     let price = 0;
     for(item of cartItems){
         price += (+item.querySelector('.productPrice').innerText.split(' ')[1]);
