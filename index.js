@@ -304,7 +304,7 @@ app.post('/resetPassword', async (req, res) => {
         return;
     }
 
-    if(data.resetCode != passwordResetCode.username){
+    if(data.code != passwordResetCode[username]){
         res.json({msg : 'reset code is not valid'});
         return;
     }
