@@ -5,18 +5,58 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin page</title>
+    <link rel="stylesheet" href="./css/admin.css">
 </head>
 <body>
-    <h1>Admin page</h1>
+    <nav>
+        <div class="userinfo">
+            <h1 id="username"></h1>
+            <p id="usermail"></p>
+        </div>
+        <div class="useraction">
+            <button id="logout">logout</button>
+        </div>
+    </nav>
+    <main>
+        <div class="menu">
+            <div class="title">
+                <p>Data Roti</p>
+                <button class="addProduct">Tambah Data</button>
+            </div>
+            <input type="text" name="search" id="search" placeholder="Cari roti ...">
+        </div>
+        <div class="cart">
+            <p class="title">Keranjang</p>
+            <div class="transaction">
+                <div class="totalPrice">
+                    <div class="total">TOTAL : Rp. 0</div>
+                    <p class="sub">Pembayaran dilakukan secara cash on delivery</p>
+                </div>
+                <button class="makeTransaction disabled" disabled>Pesan</button>
+            </div>
+        </div>
+    </main>
+    <div class="modal">
+        <div class="productDataForm">
+            <div class="header">
+                <p class="title">Ubah Data</p>
+                <img src="./img/Delete.svg" alt="close" class="close">
+            </div>
+            <div class="textField">
+                <label for="productName">nama</label>
+                <input type="text" name="productName" id="editNama" disabled>
+            </div>
+            <div class="textField">
+                <label for="productPrice">harga</label>
+                <input type="text" name="harga" id="editHarga">
+            </div>
+            <div class="textField">
+                <label for="stock">stock</label>
+                <input type="text" name="stock" id="editStock">
+            </div>
+            <button class="saveData">Simpan</button>
+        </div>
+    </div>
 </body>
-    <script>
-        isLoggedIn();
-        function isLoggedIn(){
-        if(localStorage.getItem('token')){
-            return true;
-        }
-            window.location.assign(`${window.location.protocol}//${window.location.hostname}:${window.location.port}`)
-            return false;
-        }
-    </script>
+    <script src="js/admin.js"></script>
 </html>

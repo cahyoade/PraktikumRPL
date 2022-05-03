@@ -1,0 +1,287 @@
+@import 'main';
+
+body{
+    width: 100vw;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: $primaryColor;
+    height: 9vh;
+    padding: 0 5vw;
+    color: white;
+    p{
+        @extend .small;
+        margin-top: -3px;
+    }
+
+    button{
+        @extend .medium;
+        border: none;
+        background-color: $primaryColor;
+        color: white;
+        cursor: pointer;
+    }
+}
+
+main{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 9vh 5vw;
+    width: 100%;
+
+    .menu{
+        padding-right: 8vw;
+        width: 100%;
+
+        .title{
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            p{
+                @extend .extraBig, .bold;
+            }
+            button{
+                @extend .medium;
+                border: none;
+                background-color: $rootColor;
+                cursor: pointer;
+            }
+        }
+        .sub{
+            @extend .light, .small;
+            margin-bottom: 2vh;
+            margin-top:-5px;
+        }
+        #search{
+            width: 100%;
+            padding: 10px;
+            border-radius: 7px;
+            margin-bottom: 2vh;
+        }
+        .item{
+            width: 100%;
+            display:flex;
+            padding: 10px 15px;
+            justify-content: space-between;
+            align-items: center;
+            background-color: $primaryColor;
+            color: white;
+            border-radius: 7px;
+            margin-bottom: 7px;
+
+            .info{
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                width: 100%;
+                max-width: 400px;
+
+                .controls{
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    width: 20%;
+                    min-width: 130px;
+                    margin-right: 10px;
+                }
+                .quantity{
+                    @extend .bold, .extraBig;
+                }
+
+                .productName{
+                    @extend .bold, .medium;
+                }
+                .productPrice{
+                    @extend .small;
+                }
+            }
+
+            button{
+                border: none;
+                background-color: $primaryColor;
+                color: white;
+                cursor: pointer;
+            }
+
+            button.addToCard{
+                @extend .small;
+            }
+
+            button.minus, button.plus{
+                @extend .big;
+            }
+        }
+    }
+
+    .cart{
+        padding-right: 8vw;
+        width: 100%;
+        .title{
+            @extend .extraBig, .bold;
+            margin-bottom: 2vh;
+        }
+        
+        .transaction{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding-bottom: 2vh;
+
+            .total{
+                @extend .big, .bold;
+            }
+
+            .sub{
+                @extend .light, .small;
+            }
+
+            button{
+                @extend .medium, .bold;
+                border: none;
+                background-color: $primaryColor;
+                color: white;
+                cursor: pointer;
+                height: 100%;
+                width: 30%;
+                padding: 7px 0;
+                max-width: 150px;
+                border-radius: 7px;
+            }
+        }
+        .cartItem{
+            width: 100%;
+            display:flex;
+            padding: 0 15px;
+            justify-content: space-between;
+            align-items: center;
+            background-color: $primaryColor;
+            color: white;
+            border-radius: 7px;
+            margin-bottom: 7px;
+
+            .info{
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                width: 100%;
+                max-width: 400px;
+
+                .controls{
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    width: 20%;
+                    min-width: 130px;
+                    margin-right: 10px;
+                }
+                .quantity{
+                    @extend .bold, .extraBig;
+                }
+
+                .productName{
+                    @extend .bold, .medium;
+                }
+                .productPrice{
+                    @extend .small;
+                }
+            }
+
+            button{
+                border: none;
+                background-color: $primaryColor;
+                color: white;
+                cursor: pointer;
+            }
+
+            button.addToCard{
+                @extend .small;
+            }
+
+            button.minus, button.plus{
+                @extend .big;
+            }
+        }
+    }
+}
+
+.disabled {
+    filter: grayscale(1);
+}
+
+.modal{
+    display: none;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba($color: #000000, $alpha: 0.3);
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+
+    .productDataForm{
+        display: flex;
+        flex-direction: column;
+        background-color: white;
+        width: 25vw;
+        min-width: 350px;
+        border-radius: 20px;
+        padding: 30px;
+
+        .header{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+
+            .title{
+                @extend .bold, .big;
+            }
+            .close{
+                height: 15px;
+                width: auto;
+                filter: invert(1);
+                cursor: pointer;
+            }
+        }
+
+        > .textField{
+            @extend .flex-column, .light, .small;
+            margin: 2px 0 0 0;
+            input{
+                margin: 5px 0;
+                padding: 5px;
+                border: 1.9px solid #7b7b7b;
+                border-radius: 5px;
+            }
+        }
+        button{
+            @extend .small;
+            border: none;
+            background-color: $primaryColor;
+            color: white;
+            cursor: pointer;
+            width: 30%;
+            padding: 7px 0;
+            max-width: 150px;
+            border-radius: 7px;
+            margin-top: 10px;
+            align-self: flex-end;
+        }
+    }
+}
+@media only screen and (max-width: 950px) {
+    main{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        > * {
+            padding-bottom:5vh;
+        }
+    }
+}

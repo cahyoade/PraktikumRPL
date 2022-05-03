@@ -115,11 +115,52 @@ app.post('/adminTransactions', authorizeAdmin, (req, res) => {
     })
 })
 
+app.post('/adminData', authorizeAdmin, async (req, res) => {
+    const data = req.body;
+    const hashedPassword = await bcrypt.hash(data.password, 10).catch(err => {res.json({msg : 'server error'});res.end()});
+    const query = `update user set password='${hashedPassword}', email='${data.email}' where username='${data.username}'`;
+
+    pool.getConnection((err, connection) => {
+        if(err) {
+            res.json({msg : err});
+        }
+
+        connection.query(query, (err, rows) => {
+            connection.release();
+            if (err) {
+                res.json({msg : err});
+            } else {
+                res.json({msg : "insert data success"});
+            }
+        })
+    })
+})
+
+app.get('/adminData', authorizeUser, async (req, res) => {
+    const data = req.headers;
+    const query = `select * from user where username='${data.username}'`;
+
+    pool.getConnection((err, connection) => {
+        if(err) {
+            res.json({msg : err});
+        }
+
+        connection.query(query, (err, rows) => {
+            connection.release();
+            if (err) {
+                res.json({msg : err});
+            } else {
+                res.json({username : rows[0].username, email : rows[0].email, address : rows[0].address, role : rows[0].role});
+            }
+        })
+    })
+})
+
 app.post('/Products', authorizeAdmin, (req, res) => {
     const data = req.body;
     const query = {insert : `insert into product values ('${data.name}','${data.price}', '${data.stock}')`,
     edit : `update product set name='${data.name}', price ='${data.price}', stock='${data.stock}' where name='${data.name}'`,
-    delete : `delete from product where name=${data.name}`};
+    delete : `delete from product where name='${data.name}'`};
 
     pool.getConnection((err, connection) => {
         if(err) {
