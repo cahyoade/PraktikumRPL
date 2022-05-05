@@ -14,21 +14,21 @@ h1 {
   font-family: 'Arvo', serif;
 }
 
-.extraBig, main .menu .title p, main .menu .item .info .quantity, main .cart .title, main .cart .cartItem .info .quantity {
+.extraBig, main .menu .title p, main .menu .scroll .item .info .quantity, main .transaction .title, main .transaction .scroll .transactionItem .info .quantity {
   font-size: 48px;
   font-family: 'Arvo', serif;
 }
 
-.big, main .menu .item button.minus, main .menu .item button.plus, main .cart .transaction .total, main .cart .cartItem button.minus, main .cart .cartItem button.plus, .modal .productDataForm .header .title {
+.big, main .menu .scroll .item button.minus, main .menu .scroll .item button.plus, main .transaction .filter .total, main .transaction .scroll .transactionItem button.minus, main .transaction .scroll .transactionItem button.plus, .modal .productDataForm .header .title {
   font-size: 24px;
   font-family: 'Arvo', serif;
 }
 
-.medium, nav button, main .menu .title button, main .menu .item .info .productName, main .cart .transaction button, main .cart .cartItem .info .productName {
+.medium, nav button, main .menu .title button, main .menu .scroll .item .info .productName, main .transaction .filter button, main .transaction .scroll .transactionItem .info .productName {
   font-size: 18px;
 }
 
-.small, nav p, main .menu .sub, main .menu .item .info .productPrice, main .menu .item button.addToCard, main .cart .transaction .sub, main .cart .cartItem .info .productPrice, main .cart .cartItem button.addToCard, .modal .productDataForm > .textField, .modal .productDataForm button {
+.small, nav p, main .menu .sub, main .menu .scroll .item .info .productPrice, main .menu .scroll .item button.addToCard, main .transaction .filter .sub, main .transaction .scroll .transactionItem .info .productPrice, main .transaction .scroll .transactionItem button.addToCard, .modal .productDataForm > .textField, .modal .productDataForm button {
   font-size: 14px;
 }
 
@@ -36,7 +36,7 @@ h1 {
   font-size: 10px;
 }
 
-.bold, main .menu .title p, main .menu .item .info .quantity, main .menu .item .info .productName, main .cart .title, main .cart .transaction .total, main .cart .transaction button, main .cart .cartItem .info .quantity, main .cart .cartItem .info .productName, .modal .productDataForm .header .title {
+.bold, main .menu .title p, main .menu .scroll .item .info .quantity, main .menu .scroll .item .info .productName, main .transaction .title, main .transaction .filter .total, main .transaction .filter button, main .transaction .scroll .transactionItem .info .quantity, main .transaction .scroll .transactionItem .info .productName, .modal .productDataForm .header .title {
   font-weight: 700;
 }
 
@@ -44,7 +44,7 @@ h1 {
   font-weight: 400;
 }
 
-.light, main .menu .sub, main .cart .transaction .sub, .modal .productDataForm > .textField {
+.light, main .menu .sub, main .transaction .filter .sub, .modal .productDataForm > .textField {
   font-weight: 300;
 }
 
@@ -134,7 +134,13 @@ main .menu #search {
   margin-bottom: 2vh;
 }
 
-main .menu .item {
+main .menu .scroll {
+  height: 60vh;
+  overflow-y: scroll;
+  padding-right: 15px;
+}
+
+main .menu .scroll .item {
   width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -152,7 +158,7 @@ main .menu .item {
   margin-bottom: 7px;
 }
 
-main .menu .item .info {
+main .menu .scroll .item .info {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -163,10 +169,10 @@ main .menu .item .info {
       -ms-flex-align: center;
           align-items: center;
   width: 100%;
-  max-width: 400px;
+  max-width: 500px;
 }
 
-main .menu .item .info .controls {
+main .menu .scroll .item .info .controls {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -181,23 +187,23 @@ main .menu .item .info .controls {
   margin-right: 10px;
 }
 
-main .menu .item button {
+main .menu .scroll .item button {
   border: none;
   background-color: #ffbc43;
   color: white;
   cursor: pointer;
 }
 
-main .cart {
+main .transaction {
   padding-right: 8vw;
   width: 100%;
 }
 
-main .cart .title {
-  margin-bottom: 2vh;
+main .transaction .title {
+  margin-bottom: 20px;
 }
 
-main .cart .transaction {
+main .transaction .filter {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -211,19 +217,25 @@ main .cart .transaction {
   padding-bottom: 2vh;
 }
 
-main .cart .transaction button {
+main .transaction .filter button {
   border: none;
   background-color: #ffbc43;
   color: white;
   cursor: pointer;
   height: 100%;
-  width: 30%;
-  padding: 7px 0;
+  width: 23%;
+  padding: 8px 0;
   max-width: 150px;
   border-radius: 7px;
 }
 
-main .cart .cartItem {
+main .transaction .scroll {
+  height: 60vh;
+  overflow-y: scroll;
+  padding-right: 15px;
+}
+
+main .transaction .scroll .transactionItem {
   width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -241,7 +253,7 @@ main .cart .cartItem {
   margin-bottom: 7px;
 }
 
-main .cart .cartItem .info {
+main .transaction .scroll .transactionItem .info {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -255,22 +267,22 @@ main .cart .cartItem .info {
   max-width: 400px;
 }
 
-main .cart .cartItem .info .controls {
+main .transaction .scroll .transactionItem .info .controls {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  width: 20%;
-  min-width: 130px;
+  width: 15%;
+  min-width: 20px;
   margin-right: 10px;
 }
 
-main .cart .cartItem button {
+main .transaction .scroll .transactionItem button {
   border: none;
   background-color: #ffbc43;
   color: white;

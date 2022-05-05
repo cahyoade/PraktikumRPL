@@ -81,7 +81,7 @@ app.get('/adminTransactions', authorizeAdmin, (req, res) => {
         if(err) {
             res.json({msg : err});
         }
-        const query = `select * from transaction`;
+        const query = "SELECT * FROM `transaction` left join product on transaction.product = product.name left join user on transaction.user = user.username";
 
         connection.query(query, (err, rows) => {
             connection.release();

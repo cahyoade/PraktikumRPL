@@ -63,70 +63,75 @@ main{
             border-radius: 7px;
             margin-bottom: 2vh;
         }
-        .item{
-            width: 100%;
-            display:flex;
-            padding: 10px 15px;
-            justify-content: space-between;
-            align-items: center;
-            background-color: $primaryColor;
-            color: white;
-            border-radius: 7px;
-            margin-bottom: 7px;
-
-            .info{
-                display: flex;
-                justify-content: flex-start;
-                align-items: center;
+        .scroll{
+            height: 60vh;
+            overflow-y: scroll;
+            padding-right: 15px;
+            .item{
                 width: 100%;
-                max-width: 400px;
-
-                .controls{
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    width: 20%;
-                    min-width: 130px;
-                    margin-right: 10px;
-                }
-                .quantity{
-                    @extend .bold, .extraBig;
-                }
-
-                .productName{
-                    @extend .bold, .medium;
-                }
-                .productPrice{
-                    @extend .small;
-                }
-            }
-
-            button{
-                border: none;
+                display:flex;
+                padding: 10px 15px;
+                justify-content: space-between;
+                align-items: center;
                 background-color: $primaryColor;
                 color: white;
-                cursor: pointer;
-            }
+                border-radius: 7px;
+                margin-bottom: 7px;
 
-            button.addToCard{
-                @extend .small;
-            }
+                .info{
+                    display: flex;
+                    justify-content: flex-start;
+                    align-items: center;
+                    width: 100%;
+                    max-width: 500px;
 
-            button.minus, button.plus{
-                @extend .big;
+                    .controls{
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        width: 20%;
+                        min-width: 130px;
+                        margin-right: 10px;
+                    }
+                    .quantity{
+                        @extend .bold, .extraBig;
+                    }
+
+                    .productName{
+                        @extend .bold, .medium;
+                    }
+                    .productPrice{
+                        @extend .small;
+                    }
+                }
+
+                button{
+                    border: none;
+                    background-color: $primaryColor;
+                    color: white;
+                    cursor: pointer;
+                }
+
+                button.addToCard{
+                    @extend .small;
+                }
+
+                button.minus, button.plus{
+                    @extend .big;
+                }
             }
         }
     }
 
-    .cart{
+    .transaction{
         padding-right: 8vw;
         width: 100%;
         .title{
             @extend .extraBig, .bold;
-            margin-bottom: 2vh;
+            margin-bottom: 20px;
         }
         
-        .transaction{
+        .filter{
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -148,63 +153,69 @@ main{
                 color: white;
                 cursor: pointer;
                 height: 100%;
-                width: 30%;
-                padding: 7px 0;
+                width: 23%;
+                padding: 8px 0;
                 max-width: 150px;
                 border-radius: 7px;
             }
         }
-        .cartItem{
-            width: 100%;
-            display:flex;
-            padding: 0 15px;
-            justify-content: space-between;
-            align-items: center;
-            background-color: $primaryColor;
-            color: white;
-            border-radius: 7px;
-            margin-bottom: 7px;
-
-            .info{
-                display: flex;
-                justify-content: flex-start;
-                align-items: center;
+        .scroll{
+            height: 60vh;
+            overflow-y: scroll;
+            padding-right: 15px;
+            
+            .transactionItem{
                 width: 100%;
-                max-width: 400px;
-
-                .controls{
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    width: 20%;
-                    min-width: 130px;
-                    margin-right: 10px;
-                }
-                .quantity{
-                    @extend .bold, .extraBig;
-                }
-
-                .productName{
-                    @extend .bold, .medium;
-                }
-                .productPrice{
-                    @extend .small;
-                }
-            }
-
-            button{
-                border: none;
+                display:flex;
+                padding: 0 15px;
+                justify-content: space-between;
+                align-items: center;
                 background-color: $primaryColor;
                 color: white;
-                cursor: pointer;
-            }
+                border-radius: 7px;
+                margin-bottom: 7px;
 
-            button.addToCard{
-                @extend .small;
-            }
+                .info{
+                    display: flex;
+                    justify-content: flex-start;
+                    align-items: center;
+                    width: 100%;
+                    max-width: 400px;
 
-            button.minus, button.plus{
-                @extend .big;
+                    .controls{
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        width: 15%;
+                        min-width: 20px;
+                        margin-right: 10px;
+                    }
+                    .quantity{
+                        @extend .bold, .extraBig;
+                    }
+
+                    .productName{
+                        @extend .bold, .medium;
+                    }
+                    .productPrice{
+                        @extend .small;
+                    }
+                }
+
+                button{
+                    border: none;
+                    background-color: $primaryColor;
+                    color: white;
+                    cursor: pointer;
+                }
+
+                button.addToCard{
+                    @extend .small;
+                }
+
+                button.minus, button.plus{
+                    @extend .big;
+                }
             }
         }
     }
