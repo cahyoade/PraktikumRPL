@@ -105,6 +105,103 @@ main{
         }
     }
 
+    .transactions{
+        padding-right: 8vw;
+        width: 100%;
+        .title{
+            @extend .extraBig, .bold;
+            margin-bottom: 20px;
+        }
+        
+        .filter{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding-bottom: 2vh;
+
+            .total{
+                @extend .big, .bold;
+            }
+
+            .sub{
+                @extend .light, .small;
+            }
+
+            button{
+                @extend .medium, .bold;
+                border: none;
+                background-color: $primaryColor;
+                color: white;
+                cursor: pointer;
+                height: 100%;
+                width: 23%;
+                padding: 8px 0;
+                max-width: 150px;
+                border-radius: 7px;
+            }
+        }
+        .scroll{
+            height: 60vh;
+            overflow-y: scroll;
+            padding-right: 15px;
+            
+            .transactionItem{
+                width: 100%;
+                display:flex;
+                padding: 0 15px;
+                justify-content: space-between;
+                align-items: center;
+                background-color: $primaryColor;
+                color: white;
+                border-radius: 7px;
+                margin-bottom: 7px;
+
+                .info{
+                    display: flex;
+                    justify-content: flex-start;
+                    align-items: center;
+                    width: 100%;
+                    max-width: 400px;
+
+                    .controls{
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        width: 15%;
+                        min-width: 20px;
+                        margin-right: 10px;
+                    }
+                    .quantity{
+                        @extend .bold, .extraBig;
+                    }
+
+                    .productName{
+                        @extend .bold, .medium;
+                    }
+                    .productPrice{
+                        @extend .small;
+                    }
+                }
+
+                button{
+                    border: none;
+                    background-color: $primaryColor;
+                    color: white;
+                    cursor: pointer;
+                }
+
+                button.addToCard{
+                    @extend .small;
+                }
+
+                button.minus, button.plus{
+                    @extend .big;
+                }
+            }
+        }
+    }
+
     .cart{
         padding-right: 8vw;
         width: 100%;

@@ -14,21 +14,21 @@ h1 {
   font-family: 'Arvo', serif;
 }
 
-.extraBig, main .menu .title, main .menu .item .info .quantity, main .cart .title, main .cart .cartItem .info .quantity {
+.extraBig, main .menu .title, main .menu .item .info .quantity, main .transactions .title, main .transactions .scroll .transactionItem .info .quantity, main .cart .title, main .cart .cartItem .info .quantity {
   font-size: 48px;
   font-family: 'Arvo', serif;
 }
 
-.big, main .menu .item button.minus, main .menu .item button.plus, main .cart .transaction .total, main .cart .cartItem button.minus, main .cart .cartItem button.plus, .modal .userDataForm .header .title {
+.big, main .menu .item button.minus, main .menu .item button.plus, main .transactions .filter .total, main .transactions .scroll .transactionItem button.minus, main .transactions .scroll .transactionItem button.plus, main .cart .transaction .total, main .cart .cartItem button.minus, main .cart .cartItem button.plus, .modal .userDataForm .header .title {
   font-size: 24px;
   font-family: 'Arvo', serif;
 }
 
-.medium, nav button, main .menu .item .info .productName, main .cart .transaction button, main .cart .cartItem .info .productName {
+.medium, nav button, main .menu .item .info .productName, main .transactions .filter button, main .transactions .scroll .transactionItem .info .productName, main .cart .transaction button, main .cart .cartItem .info .productName {
   font-size: 18px;
 }
 
-.small, nav p, main .menu .sub, main .menu .item .info .productPrice, main .menu .item button.addToCard, main .cart .transaction .sub, main .cart .cartItem .info .productPrice, main .cart .cartItem button.addToCard, .modal .userDataForm > .textField, .modal .userDataForm button {
+.small, nav p, main .menu .sub, main .menu .item .info .productPrice, main .menu .item button.addToCard, main .transactions .filter .sub, main .transactions .scroll .transactionItem .info .productPrice, main .transactions .scroll .transactionItem button.addToCard, main .cart .transaction .sub, main .cart .cartItem .info .productPrice, main .cart .cartItem button.addToCard, .modal .userDataForm > .textField, .modal .userDataForm button {
   font-size: 14px;
 }
 
@@ -36,7 +36,7 @@ h1 {
   font-size: 10px;
 }
 
-.bold, main .menu .title, main .menu .item .info .quantity, main .menu .item .info .productName, main .cart .title, main .cart .transaction .total, main .cart .transaction button, main .cart .cartItem .info .quantity, main .cart .cartItem .info .productName, .modal .userDataForm .header .title {
+.bold, main .menu .title, main .menu .item .info .quantity, main .menu .item .info .productName, main .transactions .title, main .transactions .filter .total, main .transactions .filter button, main .transactions .scroll .transactionItem .info .quantity, main .transactions .scroll .transactionItem .info .productName, main .cart .title, main .cart .transaction .total, main .cart .transaction button, main .cart .cartItem .info .quantity, main .cart .cartItem .info .productName, .modal .userDataForm .header .title {
   font-weight: 700;
 }
 
@@ -44,7 +44,7 @@ h1 {
   font-weight: 400;
 }
 
-.light, main .menu .sub, main .cart .transaction .sub, .modal .userDataForm > .textField {
+.light, main .menu .sub, main .transactions .filter .sub, main .cart .transaction .sub, .modal .userDataForm > .textField {
   font-weight: 300;
 }
 
@@ -163,6 +163,101 @@ main .menu .item .info .controls {
 }
 
 main .menu .item button {
+  border: none;
+  background-color: #ffbc43;
+  color: white;
+  cursor: pointer;
+}
+
+main .transactions {
+  padding-right: 8vw;
+  width: 100%;
+}
+
+main .transactions .title {
+  margin-bottom: 20px;
+}
+
+main .transactions .filter {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+  padding-bottom: 2vh;
+}
+
+main .transactions .filter button {
+  border: none;
+  background-color: #ffbc43;
+  color: white;
+  cursor: pointer;
+  height: 100%;
+  width: 23%;
+  padding: 8px 0;
+  max-width: 150px;
+  border-radius: 7px;
+}
+
+main .transactions .scroll {
+  height: 60vh;
+  overflow-y: scroll;
+  padding-right: 15px;
+}
+
+main .transactions .scroll .transactionItem {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 0 15px;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #ffbc43;
+  color: white;
+  border-radius: 7px;
+  margin-bottom: 7px;
+}
+
+main .transactions .scroll .transactionItem .info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+  max-width: 400px;
+}
+
+main .transactions .scroll .transactionItem .info .controls {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 15%;
+  min-width: 20px;
+  margin-right: 10px;
+}
+
+main .transactions .scroll .transactionItem button {
   border: none;
   background-color: #ffbc43;
   color: white;

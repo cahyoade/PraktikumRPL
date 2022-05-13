@@ -209,7 +209,7 @@ app.get('/userTransactions', authorizeUser, (req, res) => {
         if(err) {
             res.json({msg : err});
         }
-        const query = `select * from transaction where user='${req.username}'`;
+        const query = `SELECT * FROM transaction left join product on transaction.product = product.name left join user on transaction.user = user.username where user='${req.username}'`;
 
         connection.query(query, (err, rows) => {
             connection.release();

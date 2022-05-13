@@ -6,6 +6,7 @@ const menu = document.querySelector('.menu');
 const cart = document.querySelector('.cart');
 const search = document.querySelector('#search');
 const total = document.querySelector('.total');
+const transactions = document.querySelector('.transactions');
 const editUserData = document.querySelector('#editUserData');
 const makeTransaction = document.querySelector('.makeTransaction');
 const editUsername = document.querySelector('#editUsername');
@@ -13,9 +14,21 @@ const editPassword = document.querySelector('#editPassword');
 const editEmail = document.querySelector('#editEmail');
 const editAddress = document.querySelector('#editAddress');
 const saveDataButton = document.querySelector('.saveData');
+const filterButtons = document.querySelectorAll('.filter button');
+
+for (filter of filterButtons){
+    filter.onclick = e => {
+        e.target.classList.remove('disabled');
+        e.target.parentElement.querySelector('.active').classList.add('disabled');
+        e.target.parentElement.querySelector('.active').classList.remove('active');
+        e.target.classList.add('active');
+        displayFilteredTransaction();
+    }
+}
 
 let productList;
 let globalInterval;
+let transactionList;
 
 logout.onclick = e => {
     localStorage.clear();
@@ -107,7 +120,7 @@ makeTransaction.onclick = async e => {
 
     Promise.all(transactions).then(e => window.alert('pemesanan berhasil'));
     clearCart();
-
+    location.reload();
 }
 
 isLoggedIn();
@@ -135,6 +148,10 @@ async function init(){
     for(item of productList){
         menu.appendChild(createItem(item.name, item.price, 1));
     }
+
+    res = await fetch(apiUrl + '/userTransactions', {headers : {'token' : localStorage.getItem('token')}});
+    transactionList = await res.json();
+    displayFilteredTransaction();
 }
 
 function createItem(name, price, quantity) {
@@ -222,6 +239,91 @@ function createItem(name, price, quantity) {
     }
 
     return el;        
+}
+
+function createTransactionItem(name, price, quantity, username, usermail, status, id) {
+    const el = document.createElement('div');
+
+    if(status === 1){
+        el.innerHTML = `<div class="transactionItem" price="${price}" id="${id}">
+        <div class="info">
+            <div class="controls">
+                <p class="quantity">${quantity}</p>
+            </div>
+            <div class="productInfo">
+                <p class="productName">${name}</p>
+                <p class="productPrice">Rp. ${+price * +quantity} | ${username} | ${usermail}</p>
+            </div>
+        </div>
+        <button class="cancel">Batalkan</button>
+        </div>`
+
+        el.querySelector('.cancel').onclick = async e => {
+            const id = e.target.parentElement.attributes.id.value;
+            const options = {
+                method: 'POST',
+                headers: {
+                    'token': localStorage.getItem('token'),
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({id : id, operation : 'edit', status : 4})
+            };
+            const res = await fetch(apiUrl + '/userTransactions', options);
+            const data = await res.json();
+            location.reload();
+        }
+
+        return el;    
+    }
+
+    if(status === 2){
+        el.innerHTML = `<div class="transactionItem" price="${price}" id=${id}>
+        <div class="info">
+            <div class="controls">
+                <p class="quantity">${quantity}</p>
+            </div>
+            <div class="productInfo">
+                <p class="productName">${name}</p>
+                <p class="productPrice">Rp. ${+price * +quantity} | ${username} | ${usermail}</p>
+            </div>
+        </div>
+        <button class="finish">Selesaikan</button>
+        </div>`
+
+        el.querySelector('.finish').onclick = async e => {
+            const id = e.target.parentElement.attributes.id.value;
+            const options = {
+                method: 'POST',
+                headers: {
+                    'token': localStorage.getItem('token'),
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({id : id, operation : 'edit', status : 3})
+            };
+            const res = await fetch(apiUrl + '/userTransactions', options);
+            const data = await res.json();
+            location.reload();
+        }
+
+        return el;    
+    }
+
+    if(status > 2){
+        el.innerHTML = `<div class="transactionItem" price="${price}" id="${id}">
+        <div class="info">
+            <div class="controls">
+                <p class="quantity">${quantity}</p>
+            </div>
+            <div class="productInfo">
+                <p class="productName">${name}</p>
+                <p class="productPrice">Rp. ${+price * +quantity} | ${username} | ${usermail}</p>
+            </div>
+        </div>
+        </div>`
+
+        return el;    
+    }
+    
 }
 
 function createCartItem(name, price, quantity) {
@@ -337,5 +439,17 @@ function clearCart(){
         item.querySelector('.quantity').innerText = '1';
         item.querySelector('.productPrice').innerText = item.attributes.price.value;
         item.querySelector('.delete').click();
+    }
+}
+
+function displayFilteredTransaction(){
+    const filter = document.querySelector('.active').innerText;
+    const status = {Baru : 1, Diproses : 2, Selesai : 3, Batal : 4}
+    transactions.querySelector('.scroll').innerHTML = '';
+    for (tr of transactionList){
+
+        if(tr.status == status[filter]){
+            transactions.querySelector('.scroll').appendChild(createTransactionItem(tr.name, tr.price, tr.quantity, tr.user, tr.email, tr.status, tr.id))
+        }
     }
 }
